@@ -32,30 +32,32 @@ import com.example.inventory.ui.item.ItemEntryViewModel
  * Provides Factory to create instance of ViewModel for the entire Inventory app
  */
 object AppViewModelProvider {
-    val Factory = viewModelFactory {
-        // Initializer for ItemEditViewModel
-        initializer {
-            ItemEditViewModel(
-                this.createSavedStateHandle()
-            )
-        }
-        // Initializer for ItemEntryViewModel
-        initializer {
-            ItemEntryViewModel(inventoryApplication().container.itemsRepository)
-        }
-
-        // Initializer for ItemDetailsViewModel
-        initializer {
-            ItemDetailsViewModel(
-                this.createSavedStateHandle()
-            )
-        }
-
-        // Initializer for HomeViewModel
-        initializer {
-            HomeViewModel()
-        }
+  val Factory = viewModelFactory {
+    // Initializer for ItemEditViewModel
+    initializer {
+      ItemEditViewModel(
+        this.createSavedStateHandle(),
+        inventoryApplication().container.itemsRepository
+      )
     }
+    // Initializer for ItemEntryViewModel
+    initializer {
+      ItemEntryViewModel(inventoryApplication().container.itemsRepository)
+    }
+
+    // Initializer for ItemDetailsViewModel
+    initializer {
+      ItemDetailsViewModel(
+        this.createSavedStateHandle(),
+        inventoryApplication().container.itemsRepository
+      )
+    }
+
+    // Initializer for HomeViewModel
+    initializer {
+      HomeViewModel(inventoryApplication().container.itemsRepository)
+    }
+  }
 }
 
 /**
@@ -63,4 +65,4 @@ object AppViewModelProvider {
  * [InventoryApplication].
  */
 fun CreationExtras.inventoryApplication(): InventoryApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)
+  (this[AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)
